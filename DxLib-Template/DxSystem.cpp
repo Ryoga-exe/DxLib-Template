@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include "DxSystem.h"
 
 void ErrMsgBx(const TCHAR* errorMsg) {
@@ -7,9 +7,9 @@ void ErrMsgBx(const TCHAR* errorMsg) {
 
 DxSystem::DxSystem() : m_hasInitialized(false), m_window(defaultWindowCon),
 m_hasGotWindowPosition(false) {
-    DxLib::SetOutApplicationLogValidFlag(FALSE);         // ˆê”Ôæ‚És‚¤
-    DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // ã‚ÌŸ‚És‚¤
-    /* ƒfƒtƒH—p */
+    DxLib::SetOutApplicationLogValidFlag(FALSE);         // ä¸€ç•ªå…ˆã«è¡Œã†
+    DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // ä¸Šã®æ¬¡ã«è¡Œã†
+    /* ãƒ‡ãƒ•ã‚©ç”¨ */
     DxLib::GetDefaultState(&m_desktopSize.width, &m_desktopSize.height, &m_window.colorDepth);
     DxLib::ChangeWindowMode(!m_window.isFullscreen);
     SetEnableSizeChange(m_window.enableSizeChange.enable, m_window.enableSizeChange.toFit);
@@ -41,11 +41,11 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
 
 bool DxSystem::DxInit() {
     if (DxLib::DxLib_Init() != 0) {
-        ErrMsgBx(L"ƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B\nƒEƒBƒ“ƒhƒE‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½B"); // language
+        ErrMsgBx(L"ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\nã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç”Ÿæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚"); // language
         return true;
     }
     if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
-        ErrMsgBx(L"ƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B\nƒEƒBƒ“ƒhƒE‚Ìİ’è‚É¸”s‚µ‚Ü‚µ‚½B");
+        ErrMsgBx(L"ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\nã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¨­å®šã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         DxLib::DxLib_End();
         return true;
     }

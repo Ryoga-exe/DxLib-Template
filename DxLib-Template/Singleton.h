@@ -5,7 +5,7 @@ class Singleton {
 
 protected:
     Singleton() {}
-    virtual ~Singleton() {}
+    virtual ~Singleton() {}//??
     Singleton(const Singleton& r) {}
     Singleton& operator=(const Singleton& r) {}
 

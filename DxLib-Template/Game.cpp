@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 
 bool Game::Initialize(const TCHAR* windowTitle) {
     if (m_system.Initialize(windowTitle)) return true;
@@ -23,5 +23,5 @@ bool Game::Update() {
     return false;
 }
 void Game::Draw() {
-
+    //😊
 }
