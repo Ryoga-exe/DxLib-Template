@@ -12,11 +12,6 @@ void Game::ProcessLoop() {
     while (SystemUpdate()) {
         Update();
         Draw();
-        DxLib::DrawFormatString(0, 0, 0xffffff, L"%d", m_system.GetWindowSize().width);
-
-        if (GetInputChar(TRUE) == ' ') {
-            m_system.ToggleFullscreenMode();
-        }
     }
 }
 

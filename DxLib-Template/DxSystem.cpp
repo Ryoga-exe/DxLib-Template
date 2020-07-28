@@ -54,7 +54,7 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
     
     SetWindowSize({ 1280, 720 });
 
-    // SetEnableSizeChange(true, false);
+    SetEnableSizeChange(true, false);
 
     SetUseVirtualFullScreenFlag(true);
     // ToggleFullscreenMode();
