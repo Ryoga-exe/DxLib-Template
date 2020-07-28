@@ -23,6 +23,7 @@ struct Window_t {
 static const Window_t defaultWindowCon = { {640, 480}, {true, true}, 32, false, false, 7 };
 
 void ErrMsgBx(const TCHAR* errorMsg);
+int ActiveStateChangeCallbackFunction(int ActiveState, void* UserData);
 
 class DxSystem {
 public:
@@ -36,13 +37,14 @@ public:
     int  SetFullscreenMode(bool isFullscreen);
     int  ToggleFullscreenMode();
     RectSize_t GetWindowSize();
-    
 
 private:
     bool DxInit();
     int  SetWindowSize(RectSize_t size);
     int  SetEnableSizeChange(bool enable, bool toFit = true);
     bool SetUseVirtualFullScreenFlag(bool useVirtualFullScreen);
+
+    
 
     bool m_hasInitialized;
     bool m_hasGotWindowPosition;
