@@ -23,5 +23,5 @@ bool Game::Update() {
     return false;
 }
 void Game::Draw() {
-    //😊
+    
 }
