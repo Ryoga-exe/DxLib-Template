@@ -3,13 +3,13 @@
 
 class Game {
 public:
-	bool Initialize(const TCHAR* windowTitle);
-	bool Finalize();
-	void ProcessLoop();
+    bool Initialize(const TCHAR* windowTitle);
+    bool Finalize();
+    void ProcessLoop();
 private:
-	bool SystemUpdate();
-	bool Update();
-	void Draw();
+    bool SystemUpdate();
+    bool Update();
+    void Draw();
 
-	DxSystem m_system;
+    DxSystem m_system;
 };
