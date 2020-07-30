@@ -10,7 +10,7 @@ protected:
     Singleton& operator=(const Singleton& r) {}
 
 public:
-    static _T* Instance() {
+    static inline _T* Instance() {
         static _T inst;
         return &inst;
     };
