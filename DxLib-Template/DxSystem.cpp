@@ -1,71 +1,36 @@
-﻿#include <stdio.h>
-#include "DxSystem.h"
-
-// static bool useVF, isF;
+﻿#include "DxSystem.h"
 
 void ErrMsgBx(const TCHAR* errorMsg) {
-    MessageBox( NULL, errorMsg, L"ERROR", MB_OK | MB_ICONERROR );
+    MessageBox(NULL, errorMsg, L"ERROR", MB_OK | MB_ICONERROR);
 }
-/*
-int ActiveStateChangeCallbackFunction(int ActiveState, void* UserData)
-{
-    if (!useVF && !isF) {
-        return 0;
-    }
-    else {
-        if (ActiveState) {
-            SetWindowZOrder(DX_WIN_ZTYPE_TOPMOST, TRUE);
-        }
-        else {
-            SetWindowZOrder(DX_WIN_ZTYPE_NORMAL, FALSE);
-        }
 
-    }
-    return 0;
-}
-*/
-
-DxSystem::DxSystem() : m_hasInitialized(false), m_window(defaultWindowCon),
-m_hasGotWindowPosition(false) {
+DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(true),
+m_styleMode(7), m_windowSize({ 640, 480 }), m_isMaxSize(false) {
     DxLib::SetOutApplicationLogValidFlag(FALSE);         // 一番先に行う
     DxLib::SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8); // 上の次に行う
-    // DxLib::SetActiveStateChangeCallBackFunction(ActiveStateChangeCallbackFunction, NULL);
-    /* デフォ用 */
-    DxLib::GetDefaultState(&m_desktopSize.width, &m_desktopSize.height, &m_window.colorDepth);
-    DxLib::ChangeWindowMode(!m_window.isFullscreen);
-    SetEnableSizeChange(m_window.enableSizeChange.enable, m_window.enableSizeChange.toFit);
-    DxLib::SetWindowStyleMode(m_window.styleMode);
-    //useVF = false; isF = false;
+    DxLib::SetUseCharSet(DX_CHARSET_UTF8);
+
+    DxLib::GetDefaultState(&m_desktopSize.width, &m_desktopSize.height, &m_colorDepth);
+    DxLib::SetWindowStyleMode(m_styleMode);
+    m_windowPos = { (int)((m_desktopSize.width - m_windowSize.width) / 2), (int)((m_desktopSize.height - m_windowSize.height) / 2) };
+    if (m_styleMode != 8) DxLib::SetWindowInitPosition(m_windowPos.width, m_windowPos.height);
+    // 仮想フルスクリーンの各種設定
+    DxLib::SetWindowSizeChangeEnableFlag(m_enableChangeSize, FALSE);
+    DxLib::ChangeWindowMode(TRUE);
+    DxLib::SetGraphMode(m_desktopSize.width, m_desktopSize.height, m_colorDepth);
+    DxLib::SetWindowSize(m_windowSize.width, m_windowSize.height);
 }
+
 DxSystem::~DxSystem() {
     Finalize();
-}
-bool DxSystem::Finalize() {
-    if (!m_hasInitialized) return true;
-    DxLib::DxLib_End();
-    m_hasInitialized = false;
-    return false;
 }
 
 bool DxSystem::Initialize(const TCHAR* windowTitle) {
     if (m_hasInitialized) return true;
+    if (windowTitle == nullptr) return true;
     DxLib::SetMainWindowText(windowTitle);
 
-    
-    SetWindowSize({ 1280, 720 });
 
-    SetEnableSizeChange(true, false);
-
-    SetUseVirtualFullScreenFlag(true);
-    // ToggleFullscreenMode();
-
-    if (DxInit()) return true;
-
-    m_hasInitialized = true;
-    return false;
-}
-
-bool DxSystem::DxInit() {
     if (DxLib::DxLib_Init() != 0) {
         ErrMsgBx(L"エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
         return true;
@@ -75,114 +40,80 @@ bool DxSystem::DxInit() {
         DxLib::DxLib_End();
         return true;
     }
-    if (!m_hasGotWindowPosition) {
-        DxLib::GetWindowPosition(&m_windowPosX, &m_windowPosY);
-        m_hasGotWindowPosition = true;
-    }
 
+    m_hasInitialized = true;
     return false;
 }
 
-int DxSystem::SetWindowSize(RectSize_t size) {
-    m_window.size = size;
-    if (!m_window.enableSizeChange.toFit || m_window.useVirtualFullscreen) {
-        return DxLib::SetWindowSize(size.width, size.height);
-    }
-    return DxLib::SetGraphMode(size.width, size.height, m_window.colorDepth);
+bool DxSystem::Finalize() {
+    if (!m_hasInitialized) return true;
+    DxLib::DxLib_End();
+    m_hasInitialized = false;
+    return false;
 }
 
-int DxSystem::SetEnableSizeChange(bool enable, bool toFit) {
-    if (m_window.useVirtualFullscreen) return -1;
-    if (m_window.enableSizeChange.toFit) { // true -> false
-        if (!toFit) {
-            DxLib::SetGraphMode(m_desktopSize.width, m_desktopSize.height, m_window.colorDepth);
-            DxLib::SetWindowSize(m_window.size.width, m_window.size.height);
-        }
-    }
-    else {  // false -> true
-        if (toFit) {
-            if (!m_window.useVirtualFullscreen) DxLib::SetGraphMode(m_window.size.width, m_window.size.width, m_window.colorDepth);
-            DxLib::SetWindowSize(m_window.size.width, m_window.size.width);
-        }
-    }
-    m_window.enableSizeChange = { enable, toFit };
-    return DxLib::SetWindowSizeChangeEnableFlag(enable, toFit);
+bool DxSystem::Update() {
+    /* !m_enableChangeSize && m_isFullscreen だったら、ここで拡大して描画するやつ */
+    /*
+    SetDrawArea(0, 0, WindowW, WindowH);
+
+    // 3D描画の中心をウインドウの中心に設定する
+    SetCameraScreenCenter(WindowW / 2.0f, WindowH / 2.0f);
+
+    // 3D描画のスケールをウインドウの縦幅によって変更する
+    SetDraw3DScale((float)WindowH / DesktopH);
+    */
+    return false;
 }
 
-bool DxSystem::SetUseVirtualFullScreenFlag(bool useVirtualFullScreen) {
-    // same (true -> true, false -> false)
-    if (m_window.useVirtualFullscreen == useVirtualFullScreen) return false;
-    // false -> true
-    else if (!m_window.useVirtualFullscreen && useVirtualFullScreen) {
-        m_window.useVirtualFullscreen = useVirtualFullScreen;
-        if (m_window.isFullscreen) DxLib::ChangeWindowMode(TRUE);
-
-        DxLib::SetGraphMode(m_desktopSize.width, m_desktopSize.height, m_window.colorDepth);
-
-        m_window.enableSizeChange.toFit = false;
-
-        DxLib::SetWindowSizeChangeEnableFlag(m_window.enableSizeChange.enable, FALSE);
-
-        DxLib::SetWindowSize(m_window.size.width, m_window.size.height);
-
-        SetFullscreenMode(m_window.isFullscreen);
+bool DxSystem::SetFullscreenMode(const bool isFullscreen) {
+    if (m_isFullscreen == isFullscreen) return false;
+    if (isFullscreen) {
+        DxLib::GetWindowPosition(&m_windowPos.width, &m_windowPos.height);
+        DxLib::GetWindowSize(&m_windowSize.width, &m_windowSize.height);
+        m_isMaxSize = (DxLib::GetWindowMaxSizeFlag() == TRUE);
+        DxLib::SetWindowSizeChangeEnableFlag(FALSE, FALSE);
+        // DxLib::SetWindowZOrder(DX_WIN_ZTYPE_TOPMOST);
+        DxLib::SetWindowSize(m_desktopSize.width, m_desktopSize.height);
+        if (m_styleMode != 2) DxLib::SetWindowStyleMode(2);
+        DxLib::SetWindowPosition(0, 0);
     }
-    // true -> false
     else {
-        m_window.useVirtualFullscreen = useVirtualFullScreen;
-        DxLib::SetGraphMode(m_window.size.width, m_window.size.width, m_window.colorDepth);
-        DxLib::SetWindowSize(m_window.size.width, m_window.size.width);
-        SetFullscreenMode(m_window.isFullscreen);
+        DxLib::SetWindowSizeChangeEnableFlag(m_enableChangeSize, FALSE);
+        //DxLib::SetWindowZOrder(DX_WIN_ZTYPE_NORMAL);
+        if (m_isMaxSize && m_styleMode == 7) DxLib::SetWindowStyleMode(8);
+        else DxLib::SetWindowStyleMode(m_styleMode);
+        DxLib::SetWindowPosition(m_windowPos.width, m_windowPos.height);
+        DxLib::SetWindowSize(m_windowSize.width, m_windowSize.height);
     }
+    m_isFullscreen = isFullscreen;
     return false;
 }
-
-int DxSystem::SetWindowPosition(int posX, int posY) {
-    if (m_window.isFullscreen) return -1;
-    m_hasGotWindowPosition = true;
-    m_windowPosX = posX; m_windowPosY = posY;
-    return DxLib::SetWindowPosition(posX, posY);
+bool DxSystem::ToggleFullscreenMode() {
+    return SetFullscreenMode(!m_isFullscreen);
 }
 
-int DxSystem::SetFullscreenMode(bool isFullscreen) {
-    if (m_window.isFullscreen == isFullscreen) return 0;
-    if (!m_hasGotWindowPosition) {
-        m_windowPosX = (int)((m_desktopSize.width - m_window.size.width) / 2);
-        m_windowPosY = (int)((m_desktopSize.height - m_window.size.height) / 2);
-        m_hasGotWindowPosition = true;
+bool DxSystem::SetWindowSize(const RectSize size) {
+    if (size.width <= 0 || size.height <= 0) return true;
+    if (m_isFullscreen) return true;
+    m_windowSize = size;
+    if (!m_hasInitialized) {
+        m_windowPos = { (int)((m_desktopSize.width - size.width) / 2), (int)((m_desktopSize.height - size.height) / 2) };
+        if (m_styleMode != 8) DxLib::SetWindowInitPosition(m_windowPos.width, m_windowPos.height);
     }
-    m_window.isFullscreen = isFullscreen;
-    if (m_window.useVirtualFullscreen) {
-        if (isFullscreen) {
-            DxLib::SetWindowSizeChangeEnableFlag(FALSE, FALSE);
-            // DxLib::SetWindowZOrder(DX_WIN_ZTYPE_TOPMOST);
-            DxLib::SetWindowSize(m_desktopSize.width, m_desktopSize.height);
-            if (m_window.styleMode != 2) DxLib::SetWindowStyleMode(2);
-            DxLib::SetWindowPosition(0, 0);
-        }
-        else {
-            DxLib::SetWindowSizeChangeEnableFlag(m_window.enableSizeChange.enable, false);
-            DxLib::SetWindowStyleMode(m_window.styleMode);
-            DxLib::SetWindowZOrder(DX_WIN_ZTYPE_NORMAL);
-            DxLib::SetWindowPosition(m_windowPosX, m_windowPosY);
-            DxLib::SetWindowSize(m_window.size.width, m_window.size.height);
-        }
-        return 0;
-    }
-    return DxLib::ChangeWindowMode(!isFullscreen);
+    return DxLib::SetWindowSize(size.width, size.height) == 0 ? false : true;
 }
-int DxSystem::ToggleFullscreenMode() {
-    return SetFullscreenMode(!m_window.isFullscreen);
+bool DxSystem::SetWindowSizeChangeEnable(const bool enable) {
+    if (m_enableChangeSize == enable) return false;
+    m_enableChangeSize = enable;
+    return DxLib::SetWindowSizeChangeEnableFlag(enable, FALSE) == 0 ? false : true;
 }
 
-RectSize_t DxSystem::GetWindowSize() {
-    if (m_window.useVirtualFullscreen && m_window.isFullscreen) {
-        return m_desktopSize;
+RectSize DxSystem::GetWindowSize() {
+    if (!m_enableChangeSize) {
+        return m_windowSize;
     }
-    if (!m_window.enableSizeChange.toFit) {
-        int width, height;
-        DxLib::GetWindowSize(&width, &height);
-        m_window.size = { width, height };
-    }
-    return m_window.size;
+    RectSize size;
+    DxLib::GetWindowSize(&size.width, &size.height);
+    return size;
 }

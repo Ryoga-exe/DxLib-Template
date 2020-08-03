@@ -1,54 +1,44 @@
 #pragma once
 #include "DxLib.h"
+#include "Singleton.h"
 
-struct RectSize_t {
-    int width;
-    int height;
+struct CoordI {
+    int x, y;
 };
 
-struct EnableSizeChange_t {
-    bool enable;
-    bool toFit;
+struct RectSize {
+    int width, height;
 };
-
-struct Window_t {
-    RectSize_t size;
-    EnableSizeChange_t enableSizeChange;
-    int  colorDepth;
-    bool isFullscreen;
-    bool useVirtualFullscreen;
-    int  styleMode;
-};
-
-static const Window_t defaultWindowCon = { {640, 480}, {true, true}, 32, false, false, 7 };
 
 void ErrMsgBx(const TCHAR* errorMsg);
-int ActiveStateChangeCallbackFunction(int ActiveState, void* UserData);
 
-class DxSystem {
-public:
+class DxSystem : public Singleton<DxSystem> {
     DxSystem();
     ~DxSystem();
-    
+    friend Singleton<DxSystem>;
+public:
     bool Initialize(const TCHAR* windowTitle);
     bool Finalize();
+    bool Update();
 
-    int  SetWindowPosition(int posX, int posY);
-    int  SetFullscreenMode(bool isFullscreen);
-    int  ToggleFullscreenMode();
-    RectSize_t GetWindowSize();
+    bool SetFullscreenMode(const bool isFullscreen);
+    bool ToggleFullscreenMode();
+    bool SetWindowSize(const RectSize size);
+    bool SetWindowSizeChangeEnable(const bool enable);
+
+    bool GetIsFullscreen() { return m_isFullscreen; }
+    RectSize GetWindowSize();
 
 private:
-    bool DxInit();
-    int  SetWindowSize(RectSize_t size);
-    int  SetEnableSizeChange(bool enable, bool toFit = true);
-    bool SetUseVirtualFullScreenFlag(bool useVirtualFullScreen);
+    bool m_hasInitialized,
+        m_isFullscreen,
+        m_enableChangeSize,
+        m_isMaxSize;
 
-    
+    int  m_styleMode;
 
-    bool m_hasInitialized;
-    bool m_hasGotWindowPosition;
-    Window_t   m_window;
-    RectSize_t m_desktopSize;
-    int m_windowPosX, m_windowPosY;
+    RectSize m_desktopSize, m_windowSize;
+    RectSize m_windowPos;
+
+    int   m_colorDepth;
 };

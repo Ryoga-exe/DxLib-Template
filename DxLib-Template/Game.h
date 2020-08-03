@@ -10,6 +10,4 @@ private:
     bool SystemUpdate();
     bool Update();
     void Draw();
-
-    DxSystem m_system;
 };
