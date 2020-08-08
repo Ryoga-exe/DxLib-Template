@@ -3,9 +3,5 @@
 #include "Mouse/Mouse.h"
 
 namespace input {
-    bool Update(bool drawKeyCodeFlag) {
-        Keyboard::Inst()->Update(drawKeyCodeFlag);
-        Mouse::Inst()->Update();
-        return false;
-    }
+    bool Update(bool drawKeyCodeFlag);
 }
