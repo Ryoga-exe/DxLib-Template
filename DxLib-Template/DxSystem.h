@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "Singleton.h"
 #include "Input.h"
+#include "Time/Timer.h"
 
 struct CoordI {
     int x, y;

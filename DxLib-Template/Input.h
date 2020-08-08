@@ -3,5 +3,5 @@
 #include "Mouse/Mouse.h"
 
 namespace input {
-    bool Update(bool drawKeyCodeFlag);
+    bool Update(bool drawKeyCodeFlag = false);
 }

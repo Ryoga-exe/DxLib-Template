@@ -17,11 +17,12 @@ void Game::ProcessLoop() {
 }
 
 bool Game::SystemUpdate() {
+    DxSystem::Inst()->Update();
+    input::Update();
     return (!DxLib::ScreenFlip() && !DxLib::ProcessMessage() && !DxLib::ClearDrawScreen());
 }
 bool Game::Update() {
     return false;
 }
 void Game::Draw() {
-
 }
