@@ -10,6 +10,4 @@ private:
     bool SystemUpdate();
     bool Update();
     void Draw();
-
-    Timer m_timer;
 };

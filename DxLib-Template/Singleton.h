@@ -1,4 +1,5 @@
 #pragma once
+#define $(className) className::Inst()
 
 template <typename T>
 class Singleton {

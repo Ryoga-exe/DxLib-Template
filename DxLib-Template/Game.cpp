@@ -1,12 +1,12 @@
 ﻿#include "Game.h"
 
 bool Game::Initialize(const TCHAR* windowTitle) {
-    DxSystem::Inst()->SetWindowSize({ 1280, 720 });
-    if (DxSystem::Inst()->Initialize(windowTitle)) return true;
+    $(DxSystem)->SetWindowSize({ 1280, 720 });
+    if ($(DxSystem)->Initialize(windowTitle)) return true;
     return false;
 }
 bool Game::Finalize() {
-    DxSystem::Inst()->Finalize();
+    $(DxSystem)->Finalize();
     return false;
 }
 void Game::ProcessLoop() {
@@ -17,7 +17,7 @@ void Game::ProcessLoop() {
 }
 
 bool Game::SystemUpdate() {
-    DxSystem::Inst()->Update();
+    $(DxSystem)->Update();
     input::Update();
     return (!DxLib::ScreenFlip() && !DxLib::ProcessMessage() && !DxLib::ClearDrawScreen());
 }
