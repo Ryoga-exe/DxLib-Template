@@ -1,5 +1,5 @@
 #pragma once
-#include "../Singleton.h"
+#include "../Singleton/Singleton.h"
 
 class Mouse : public Singleton<Mouse> {
     Mouse();

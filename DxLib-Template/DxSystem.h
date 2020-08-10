@@ -1,6 +1,6 @@
 #pragma once
 #include "DxLib.h"
-#include "Singleton.h"
+#include "Singleton/Singleton.h"
 #include "Input.h"
 #include "Time/Timer.h"
 #include "Easing/Easing.h"

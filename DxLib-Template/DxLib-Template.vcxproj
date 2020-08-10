@@ -173,7 +173,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Keyboard\Keyboard.h" />
     <ClInclude Include="Mouse\Mouse.h" />
-    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Singleton\Singleton.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Time\Timer.h" />
   </ItemGroup>

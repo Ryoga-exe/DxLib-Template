@@ -1,5 +1,5 @@
 #pragma once
-#include "../Singleton.h"
+#include "../Singleton/Singleton.h"
 
 #define KEY(i) KEY_INPUT_ ## i
 
