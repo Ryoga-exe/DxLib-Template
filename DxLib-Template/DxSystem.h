@@ -3,6 +3,7 @@
 #include "Singleton.h"
 #include "Input.h"
 #include "Time/Timer.h"
+#include "Easing/Easing.h"
 
 struct CoordI {
     int x, y;
@@ -44,3 +45,6 @@ private:
 
     int   m_colorDepth;
 };
+
+int  operator""_sec(const long double second);
+int  DrawBg(unsigned int color);
