@@ -1,6 +1,6 @@
 #pragma once
 #include "ISceneChanger.h"
-#include "../Task.h"
+#include "../Task/Task.h"
 #include "../DxSystem.h"
 
 enum class ChangeEffect {
