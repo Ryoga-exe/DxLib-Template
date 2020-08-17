@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ISceneChanger.h"
 #include "BaseScene.h"
 #include <vector>

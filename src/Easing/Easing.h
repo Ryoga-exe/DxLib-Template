@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Time/Timer.h"
 
 namespace easing {

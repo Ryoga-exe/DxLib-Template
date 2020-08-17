@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Singleton/Singleton.h"
 
 class Mouse : public Singleton<Mouse> {
