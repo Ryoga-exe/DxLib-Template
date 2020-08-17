@@ -28,5 +28,4 @@ private:
     bool m_hasFinishedChanging;
     Timer m_timer;
     int   m_changedTime;
-
 };

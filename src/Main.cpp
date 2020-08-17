@@ -1,5 +1,5 @@
 ﻿#include "Game.h"
-const TCHAR* title = L"DxLib";
+const TCHAR* title = u8"DxLib";
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     Game game;

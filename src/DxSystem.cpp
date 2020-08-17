@@ -1,7 +1,7 @@
 ﻿#include "DxSystem.h"
 
 void ErrMsgBx(const TCHAR* errorMsg) {
-    MessageBox(NULL, errorMsg, L"ERROR", MB_OK | MB_ICONERROR);
+    MessageBox(NULL, errorMsg, "ERROR", MB_OK | MB_ICONERROR);
 }
 
 DxSystem::DxSystem() : m_hasInitialized(false), m_isFullscreen(false), m_enableChangeSize(true),
@@ -32,11 +32,11 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
 
 
     if (DxLib::DxLib_Init() != 0) {
-        ErrMsgBx(L"エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
+        ErrMsgBx("エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
         return true;
     }
     if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
-        ErrMsgBx(L"エラーが発生しました。\nウィンドウの設定に失敗しました。");
+        ErrMsgBx("エラーが発生しました。\nウィンドウの設定に失敗しました。");
         DxLib::DxLib_End();
         return true;
     }
