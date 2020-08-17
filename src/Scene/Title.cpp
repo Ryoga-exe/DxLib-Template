@@ -10,6 +10,9 @@ void Title::Finalize() {
 }
 
 void Title::Update() {
+    if (Keyboard::Inst()->GetStatus(KEY(ESCAPE)) == Keyboard::State::Pressed) {
+        // m_sceneChanger->ChangeScene("Menu");
+    }
 }
 
 void Title::Draw() {

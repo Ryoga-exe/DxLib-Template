@@ -1,10 +1,12 @@
 ﻿#include "Game.h"
 #include "Scene/Title.h"
+// #include "Scene/Menu.h"
 
 bool Game::Initialize(const TCHAR* windowTitle) {
     $(DxSystem)->SetWindowSize({ 1280, 720 });
 
-    m_sceneMgr.Add<Title>(u8"Title");
+    m_sceneMgr.Add<Title>("Title");
+    // m_sceneMgr.Add<Menu>("Menu");
 
     if ($(DxSystem)->Initialize(windowTitle)) return true;
     m_sceneMgr.Initialize();

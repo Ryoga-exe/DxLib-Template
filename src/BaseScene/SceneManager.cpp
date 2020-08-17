@@ -52,8 +52,6 @@ void SceneManager::ChangeScene(std::string nextScene) {
     m_changedTime = m_timer.Elapse();
 }
 
-
-
 int SceneManager::FindIndex(std::string str) {
     auto iter = std::find(m_names.begin(), m_names.end(), str);
     size_t index = std::distance(m_names.begin(), iter);
