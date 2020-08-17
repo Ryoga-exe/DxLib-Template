@@ -14,8 +14,10 @@ public:
 
     void ChangeScene(std::string nextScene) override;
     template <typename T>
-    T Add(std::string name);
-
+    void Add(std::string name) {
+        m_scenes.push_back(new T(this));
+        m_names.push_back(name);
+    }
 private:
     int FindIndex(std::string str);
     bool DrawSceneChangeEffect(bool isQuit);

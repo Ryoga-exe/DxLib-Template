@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "DxSystem.h"
+#include "BaseScene/SceneManager.h"
 
 class Game {
 public:
@@ -10,4 +11,6 @@ private:
     bool SystemUpdate();
     bool Update();
     void Draw();
+
+    SceneManager m_sceneMgr;
 };

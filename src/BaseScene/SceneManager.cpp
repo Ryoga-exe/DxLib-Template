@@ -52,11 +52,7 @@ void SceneManager::ChangeScene(std::string nextScene) {
     m_changedTime = m_timer.Elapse();
 }
 
-template <typename T>
-T SceneManager::Add(std::string name) {
-    m_scenes.push_back(new T);
-    m_names.push_back(name);
-}
+
 
 int SceneManager::FindIndex(std::string str) {
     auto iter = std::find(m_names.begin(), m_names.end(), str);
