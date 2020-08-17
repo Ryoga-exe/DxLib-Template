@@ -1,4 +1,4 @@
-#include "SceneManager.h"
+﻿#include "SceneManager.h"
 
 SceneManager::SceneManager() : m_currentSceneIndex(0), m_changedTime(0), m_hasFinishedChanging(false) {
 }

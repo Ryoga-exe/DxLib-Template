@@ -1,4 +1,4 @@
-#include "Mouse.h"
+﻿#include "Mouse.h"
 #include "DxLib.h"
 #include <math.h>
 

@@ -1,4 +1,4 @@
-#include "Timer.h"
+﻿#include "Timer.h"
 
 Timer::Timer() : m_isPaused(false), m_startTime(0) {
     Start();

@@ -1,4 +1,4 @@
-#include "ISceneChanger.h"
+﻿#include "ISceneChanger.h"
 
 ISceneChanger::~ISceneChanger() {
 }
