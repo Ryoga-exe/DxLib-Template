@@ -46,5 +46,4 @@ private:
     int   m_colorDepth;
 };
 
-int  operator""_sec(const long double second);
 int  DrawBg(unsigned int color);

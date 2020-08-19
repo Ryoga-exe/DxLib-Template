@@ -1,5 +1,9 @@
 ﻿#include "Timer.h"
 
+int  operator""_sec(const long double second) {
+    return (int)second * 1000;
+}
+
 Timer::Timer() : m_isPaused(false), m_startTime(0) {
     Start();
 }

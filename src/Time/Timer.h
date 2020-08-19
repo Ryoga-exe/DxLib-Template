@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "DxLib.h"
 
+int  operator""_sec(const long double second);
+
 class Timer {
 public:
     Timer();
