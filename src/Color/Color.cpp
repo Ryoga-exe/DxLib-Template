@@ -16,11 +16,11 @@ void GetRGBFromHSV(int h, int s, int v, int& r, int& g, int& b) {
         return;
     }
 
-    float _r, _g, _b;
+    float _r = 0, _g = 0, _b = 0;
     int dh = (int)(_h / 60.f);
-    float p = _v * (1 - _s);
-    float q = _v * (1 - _s * (_h / 60.f - dh));
-    float t = _v * (1 - _s * (1 - (_h / 60.f - dh)));
+    float p = _v * (1.f - _s);
+    float q = _v * (1.f - _s * (_h / 60.f - dh));
+    float t = _v * (1.f - _s * (1 - (_h / 60.f - dh)));
 
     switch (dh) {
     case 0: _r = _v; _g =  t; _b =  p; break;
