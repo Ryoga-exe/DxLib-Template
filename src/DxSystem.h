@@ -4,6 +4,7 @@
 #include "Input/Input.h"
 #include "Time/Timer.h"
 #include "Easing/Easing.h"
+#include "Color/Color.h"
 
 struct CoordI {
     int x, y;

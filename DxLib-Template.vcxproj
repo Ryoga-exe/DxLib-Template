@@ -153,6 +153,10 @@
   <ItemGroup>
     <ClCompile Include="src\BaseScene\ISceneChanger.cpp" />
     <ClCompile Include="src\BaseScene\SceneManager.cpp" />
+    <ClCompile Include="src\Color\Color.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\DxSystem.cpp" />
     <ClCompile Include="src\Easing\Easing.cpp" />
     <ClCompile Include="src\Game.cpp" />
