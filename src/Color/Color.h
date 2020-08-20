@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "DxLib.h"
+#define MAX_H  (360)
+#define MAX_SV (100)
 
-void         GetRGBFromHSV  (int h, int s, int v, int& r, int& g, int& b);
-void         GetHSVFromRGB  (int r, int g, int b, int& h, int& s, int& v);
+void         HSVtoRGB   (int h, int s, int v, int& r, int& g, int& b);
+void         RGBtoHSV   (int r, int g, int b, int& h, int& s, int& v);
 unsigned int GetColorHSV(int h, int s, int v);
 
 struct Color {

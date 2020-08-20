@@ -1,13 +1,15 @@
 ﻿#include "Color.h"
 
-void GetRGBFromHSV(int h, int s, int v, int& r, int& g, int& b) {
-    h %= 360;
+void HSVtoRGB(int h, int s, int v, int& r, int& g, int& b) {
+    h %= MAX_H;
+    s = min(MAX_SV, s);
+    v = min(MAX_SV, v);
     float _h = (float)h, _s = (float)s, _v = (float)v;
     const float _max = _v;
-    const float _min = _max - ((_s / 255.f) * _max);
+    const float _min = _max - ((_s / MAX_SV) * _max);
 
-    _s /= 100.f;
-    _v /= 100.f;
+    _s /= (float)MAX_SV;
+    _v /= (float)MAX_SV;
 
     if (s == 0) {
         r = (int)(_v * 255.f);
@@ -36,11 +38,11 @@ void GetRGBFromHSV(int h, int s, int v, int& r, int& g, int& b) {
     b = (int)(_b * 255.f);
 }
 
-void GetHSVFromRGB(int r, int g, int b, int& h, int& s, int& v) {
+void RGBtoHSV(int r, int g, int b, int& h, int& s, int& v) {
 
     const float _max = (float)max((max(r, g)), b);
     const float _min = (float)min((min(r, g)), b);
-    v = (int)(_max / 256.f * 100.f);
+    v = (int)(_max / 255.f * MAX_SV);
 
     if (_max == _min) {
         h = 0;
@@ -53,12 +55,12 @@ void GetHSVFromRGB(int r, int g, int b, int& h, int& s, int& v) {
         
              if (h > 360) h -= 360;
         else if (h <   0) h += 360;
-        s = (int)((_max - _min) / _max * 100.f);
+        s = (int)((_max - _min) / _max * MAX_SV);
     }
 }
 
 unsigned int GetColorHSV(int h, int s, int v) {
     int r, g, b;
-    GetRGBFromHSV(h, s, v, r, g, b);
+    HSVtoRGB(h, s, v, r, g, b);
     return DxLib::GetColor(r, g, b);
 }
