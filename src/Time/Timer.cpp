@@ -3,6 +3,12 @@
 int  operator""_sec(const long double second) {
     return (int)second * 1000;
 }
+int  operator""_min(const long double minute) {
+    return (int)minute * 1000 * 60;
+}
+int  operator""_hr(const long double hour) {
+    return (int)hour * 1000 * 60 * 60;
+}
 
 Timer::Timer() : m_isPaused(false), m_startTime(0) {
     Start();

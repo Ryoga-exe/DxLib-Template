@@ -2,6 +2,8 @@
 #include "DxLib.h"
 
 int  operator""_sec(const long double second);
+int  operator""_min(const long double minute);
+int  operator""_hr(const long double hour);
 
 class Timer {
 public:
