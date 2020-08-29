@@ -95,5 +95,8 @@
     <ClInclude Include="src\Input\Mouse\Mouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\Language\Language.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
