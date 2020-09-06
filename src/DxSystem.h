@@ -30,6 +30,7 @@ public:
     bool SetWindowSize(const RectSize size);
     bool SetWindowSizeChangeEnable(const bool enable);
 
+    bool HasInitialized() { return m_hasInitialized; }
     bool GetIsFullscreen() { return m_isFullscreen; }
     RectSize GetWindowSize();
 
