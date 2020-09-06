@@ -32,11 +32,11 @@ bool DxSystem::Initialize(const TCHAR* windowTitle) {
 
 
     if (DxLib::DxLib_Init() != 0) {
-        ErrMsgBx("エラーが発生しました。\nウィンドウの生成に失敗しました。"); // language
+        ErrMsgBx("Error encountered!\nUnable to initialize system.");
         return true;
     }
     if (DxLib::SetDrawScreen(DX_SCREEN_BACK) != 0) {
-        ErrMsgBx("エラーが発生しました。\nウィンドウの設定に失敗しました。");
+        ErrMsgBx("Error encountered!\nFailed to create window.");
         DxLib::DxLib_End();
         return true;
     }

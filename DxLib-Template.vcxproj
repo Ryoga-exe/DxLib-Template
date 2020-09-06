@@ -163,6 +163,10 @@
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Input\Keyboard\Keyboard.cpp" />
     <ClCompile Include="src\Input\Mouse\Mouse.cpp" />
+    <ClCompile Include="src\Language\Language.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Scene\Title.cpp">
       <SubType>
