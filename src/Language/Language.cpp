@@ -3,3 +3,7 @@
 Language::Language() {
     m_language = "en";
 }
+
+Language::~Language() {
+
+}

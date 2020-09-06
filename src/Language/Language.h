@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../DxSystem.h"
 #include "../Singleton/Singleton.h"
 #include <string>
 #include <vector>
